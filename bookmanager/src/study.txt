@@ -1,0 +1,12 @@
+application.yml 파일
+
+spring:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    defer-datasource-initialization: true
+    show-sql: true   // 실제 Test시 sql 문을 확인 가능
+    properties:
+      hibernate:
+        format_sql: true  // sql문 더 자세히 확인 가능
