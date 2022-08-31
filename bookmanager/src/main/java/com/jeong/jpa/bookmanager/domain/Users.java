@@ -29,8 +29,8 @@ public class Users {
 
     private boolean allow;
 
-    // IsNotEmpty() 실습
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Address> address;
+//    // IsNotEmpty() 실습
+//    @OneToMany(fetch = FetchType.EAGER)
+//    private List<Address> address;
 
 }

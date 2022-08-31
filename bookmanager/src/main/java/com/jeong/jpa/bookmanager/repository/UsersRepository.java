@@ -53,7 +53,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     // 6. IsNotNull / IsNotEmpty
     List<Users> findByIdIsNotNull();
-    List<Users> findByAddressIsNotEmpty();   // name is not null and name != '' 의 의미는 아님
+//    List<Users> findByAddressIsNotEmpty();   // name is not null and name != '' 의 의미는 아님
     // String에서의 Empty와 다름, 일반적으로 NotNull이면서 NotEmpty 체크
     // IsEmpty와 IsNotEmpty는 collection properites에서만 사용가능 --> Collection Type의 NotEmpty 체크 (relation에서 이해가능)
     // exists inner 쿼리
@@ -62,4 +62,12 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     List<Users> findByAllowTrue();
     List<Users> findByAllowFalse();
 
+    // 7. In 쿼리 = OR 조건과 유사
+    List<Users> findByNameIn(List<String> names);
+
+    // 8. Like 쿼리 (StartingWith : 앞부분이 맞는 것 / EndingWith : 뒷부분이 맞는 것 / Contains : 포함된 것
+    List<Users> findByNameStartingWith(String name);
+    List<Users> findByNameEndingWith(String name);
+    List<Users> findByNameContains(String name);
+    List<Users> findByNameLike(String name);
 }
