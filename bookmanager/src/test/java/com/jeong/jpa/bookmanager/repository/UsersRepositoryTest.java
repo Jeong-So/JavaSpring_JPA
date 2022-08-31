@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -91,6 +94,30 @@ class UsersRepositoryTest {
         System.out.println("findByNameLike : " + usersRepository.findByNameLike("%eon%"));
     }
 
+    @Test
+    void pagingAndSortingTest() {
+        // 9. sorting(OrderBy Desc/Asc)
+//        System.out.println("findTop1ByName : " + usersRepository.findTop1ByName("jeong"));
+//        System.out.println("findTopByNameOrderByIdDesc : " + usersRepository.findTopByNameOrderByIdDesc("jeong"));
+//        System.out.println("findFirst2ByNameOrderByIdDescEmailAsc : " + usersRepository.findFirst2ByNameOrderByIdDescEmailAsc("jeong"));
+//        // sort 조건을 따로 줌 (why? : 메소드 이름이 너무 길어져서)
+//        System.out.println("findFirstByNameWithSortParams : " + usersRepository.findFirstByName("jeong", Sort.by(Order.desc("id"), Order.asc("email"))));
+//        System.out.println("findFirstByNameWithSortParams : " + usersRepository.findFirstByName("jeong", getSort()));
+
+
+        // 10. paging
+        System.out.println("findByNameWithPaging : " + usersRepository.findByName("jeong", PageRequest.of(1, 1, Sort.by(Order.desc("id")))).getContent());
+        // getTotalElement() : dennis란 이름이 insert 1번됨 / jeong이란 이름이 insert 3번 됨
+    }
+
+    private Sort getSort(){
+        return Sort.by(
+                Order.desc("id"),
+                Order.asc("email"),
+                Order.desc("createdAt"),
+                Order.asc("updatedAt")
+        );
+    }
 
 
 }

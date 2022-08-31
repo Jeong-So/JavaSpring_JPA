@@ -1,6 +1,9 @@
 package com.jeong.jpa.bookmanager.repository;
 
 import com.jeong.jpa.bookmanager.domain.Users;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
@@ -70,4 +73,14 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     List<Users> findByNameEndingWith(String name);
     List<Users> findByNameContains(String name);
     List<Users> findByNameLike(String name);
+
+    // 9. sorting(OrderBy Desc/Asc)
+    List<Users> findTop1ByName(String name);
+    List<Users> findTopByNameOrderByIdDesc(String name);
+    List<Users> findFirst2ByNameOrderByIdDescEmailAsc(String name);
+    // sort조건 따로 줌
+    List<Users> findFirstByName(String name, Sort sort);
+
+    // 10. paging ; return 타입으로 받고 있는 Page 인터페이스  /  P
+    Page<Users> findByName(String name, Pageable pageable);
 }
