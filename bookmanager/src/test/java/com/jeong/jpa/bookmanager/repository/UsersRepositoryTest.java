@@ -35,6 +35,25 @@ class UsersRepositoryTest {
         usersRepository.save(user);
 
         usersRepository.findAll().forEach(System.out::println);
+    }
+
+    @Test
+    void select(){
+        System.out.println(usersRepository.findByName("jeong"));
+
+        System.out.println("findByEmail : " + usersRepository.findByEmail("jeong@naver.com"));
+        System.out.println("getByEmail : " + usersRepository.getByEmail("jeong@naver.com"));
+        System.out.println("readByEmail : " + usersRepository.readByEmail("jeong@naver.com"));
+        System.out.println("queryByEmail : " + usersRepository.queryByEmail("jeong@naver.com"));
+        System.out.println("searchByEmail : " + usersRepository.searchByEmail("jeong@naver.com"));
+        System.out.println("streamByEmail : " + usersRepository.streamByEmail("jeong@naver.com"));
+        System.out.println("findUserByEmail : " + usersRepository.findUserByEmail("jeong@naver.com"));
+
+        System.out.println("findSomethingByEmail : " + usersRepository.findSomethingByEmail("jeong@naver.com"));
+
+        System.out.println("findTop2ByName : " + usersRepository.findTop2ByName("jeong"));
+        System.out.println("findFirst2ByName : " + usersRepository.findFirst2ByName("jeong"));
+        System.out.println("findLast1ByName : " + usersRepository.findLast1ByName("jeong"));
 
     }
 

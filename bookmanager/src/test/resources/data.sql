@@ -12,3 +12,6 @@ insert into users (`id`,`name`,`email`,`created_at`,`updated_at`) values(4, 'jam
 
 call next value for hibernate_sequence;
 insert into users (`id`,`name`,`email`,`created_at`,`updated_at`) values(5, 'jeong','jeong@gmail.com', now(), now());
+
+call next value for hibernate_sequence;
+insert into users (`id`,`name`,`email`,`created_at`,`updated_at`) values(6, 'jeong','jeong@hanmail.com', now(), now());
