@@ -5,9 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -81,6 +83,10 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     // sort조건 따로 줌
     List<Users> findFirstByName(String name, Sort sort);
 
-    // 10. paging ; return 타입으로 받고 있는 Page 인터페이스  /  P
+    // 10. paging ; return 타입으로 받고 있는 Page 인터페이스
     Page<Users> findByName(String name, Pageable pageable);
+
+    // 11. enum 사용법
+    @Query(value = "select * from users limit 1;", nativeQuery = true)  // nativeQuery = true : 이 쿼리 그대로 실행
+    Map<String, Object> findRawRecord();
 }

@@ -1,5 +1,6 @@
 package com.jeong.jpa.bookmanager.repository;
 
+import com.jeong.jpa.bookmanager.domain.Gender;
 import com.jeong.jpa.bookmanager.domain.Users;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
@@ -97,12 +98,12 @@ class UsersRepositoryTest {
     @Test
     void pagingAndSortingTest() {
         // 9. sorting(OrderBy Desc/Asc)
-//        System.out.println("findTop1ByName : " + usersRepository.findTop1ByName("jeong"));
-//        System.out.println("findTopByNameOrderByIdDesc : " + usersRepository.findTopByNameOrderByIdDesc("jeong"));
-//        System.out.println("findFirst2ByNameOrderByIdDescEmailAsc : " + usersRepository.findFirst2ByNameOrderByIdDescEmailAsc("jeong"));
-//        // sort 조건을 따로 줌 (why? : 메소드 이름이 너무 길어져서)
-//        System.out.println("findFirstByNameWithSortParams : " + usersRepository.findFirstByName("jeong", Sort.by(Order.desc("id"), Order.asc("email"))));
-//        System.out.println("findFirstByNameWithSortParams : " + usersRepository.findFirstByName("jeong", getSort()));
+        System.out.println("findTop1ByName : " + usersRepository.findTop1ByName("jeong"));
+        System.out.println("findTopByNameOrderByIdDesc : " + usersRepository.findTopByNameOrderByIdDesc("jeong"));
+        System.out.println("findFirst2ByNameOrderByIdDescEmailAsc : " + usersRepository.findFirst2ByNameOrderByIdDescEmailAsc("jeong"));
+        // sort 조건을 따로 줌 (why? : 메소드 이름이 너무 길어져서)
+        System.out.println("findFirstByNameWithSortParams : " + usersRepository.findFirstByName("jeong", Sort.by(Order.desc("id"), Order.asc("email"))));
+        System.out.println("findFirstByNameWithSortParams : " + usersRepository.findFirstByName("jeong", getSort()));
 
 
         // 10. paging
@@ -117,6 +118,35 @@ class UsersRepositoryTest {
                 Order.desc("createdAt"),
                 Order.asc("updatedAt")
         );
+    }
+
+    @Test
+    void insertAndUpdateTest() {
+        Users users = new Users();
+        users.setName("yeong");
+        users.setEmail("yeong@gmail.com");
+
+        usersRepository.save(users);
+
+        Users users2 = usersRepository.findById(1L).orElseThrow(RuntimeException::new);
+        users2.setName("jjjeong");
+
+        usersRepository.save(users2);
+
+        usersRepository.findAll().forEach(System.out::println);
+
+    }
+
+    @Test
+    void enumTest(){
+        Users users = usersRepository.findById(1L).orElseThrow(RuntimeException::new);
+        users.setGender(Gender.MALE);
+
+        usersRepository.save(users);
+
+        usersRepository.findAll().forEach(System.out::println);
+
+        System.out.println(usersRepository.findRawRecord().get("gender"));
     }
 
 
