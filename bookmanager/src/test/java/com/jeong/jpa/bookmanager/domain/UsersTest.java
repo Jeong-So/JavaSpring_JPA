@@ -14,7 +14,8 @@ public class UsersTest {
         users.setCreatedAt(LocalDateTime.now());
         users.setUpdatedAt(LocalDateTime.now());
 
-        Users users1 = new Users(null,"jeong","jeong@naver.com", LocalDateTime.now(), LocalDateTime.now()); //id 값 필요
+        // IsNotEmpty() : Address 사용시 null 넣어줌,  findByAllowTrue() :  allow 값(boolean 넣어줌
+        Users users1 = new Users(null,"jeong","jeong@naver.com", LocalDateTime.now(), LocalDateTime.now(), true, null); //id 값 필요
         Users users2 = new Users("jeong","jeong@naver.com");
 
         Users users3 = Users.builder()

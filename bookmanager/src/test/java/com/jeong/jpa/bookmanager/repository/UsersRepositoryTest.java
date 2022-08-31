@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,8 +40,10 @@ class UsersRepositoryTest {
 
     @Test
     void select(){
+        // 1.
         System.out.println(usersRepository.findByName("jeong"));
 
+        // 2. findBy / getBy / readBy / queryBy / searchBy / streamBy / find...By / findSomethingBy  : 다 같은 select 쿼리
         System.out.println("findByEmail : " + usersRepository.findByEmail("jeong@naver.com"));
         System.out.println("getByEmail : " + usersRepository.getByEmail("jeong@naver.com"));
         System.out.println("readByEmail : " + usersRepository.readByEmail("jeong@naver.com"));
@@ -51,10 +54,31 @@ class UsersRepositoryTest {
 
         System.out.println("findSomethingByEmail : " + usersRepository.findSomethingByEmail("jeong@naver.com"));
 
+        // 3. findFirst[number]By = findTop[number]By
         System.out.println("findTop2ByName : " + usersRepository.findTop2ByName("jeong"));
         System.out.println("findFirst2ByName : " + usersRepository.findFirst2ByName("jeong"));
         System.out.println("findLast1ByName : " + usersRepository.findLast1ByName("jeong"));
 
+        // 4. AND OR
+        System.out.println("findByEmailAndName : " + usersRepository.findByEmailAndName("jeong@naver.com", "jeong"));
+        System.out.println("findByEmailOrName : " + usersRepository.findByEmailOrName("jeong@naver.com", "dennis"));
+
+        //5. 비교 (Between / GreaterThanEqual/ After, Before / GreaterThanEqualAndIdLessThanEqual)
+        System.out.println("findByCreatedAtAfter : " + usersRepository.findByCreatedAtAfter(LocalDateTime.now().minusDays(1L)));
+        System.out.println("findByIdAfter : " + usersRepository.findByIdAfter(4L));
+        System.out.println("findByCreatedAtGreaterThan : " + usersRepository.findByCreatedAtGreaterThan(LocalDateTime.now().minusDays(1L)));
+        System.out.println("findByCreatedAtGreaterThanEqual : " + usersRepository.findByCreatedAtGreaterThanEqual(LocalDateTime.now().minusDays(1L)));
+        System.out.println("findByCreatedAtBetween : " + usersRepository.findByCreatedAtBetween(LocalDateTime.now().minusDays(1L), LocalDateTime.now().plusDays(1L)));
+        System.out.println("findByIdBetween : " + usersRepository.findByIdBetween(1L, 3L));
+        System.out.println("findByIdGreaterThanEqualAndIdLessThanEqual : " + usersRepository.findByIdGreaterThanEqualAndIdLessThanEqual(1L, 3L));
+
+        // 6. IsNotNull / IsNotEmpty : 파라미터 안받음 (해당값 상수처럼 사용됨)
+        System.out.println("findByIdIsNotNull : " + usersRepository.findByIdIsNotNull());
+        System.out.println("findByIdIsNotEmpty : " + usersRepository.findByAddressIsNotEmpty()); // exists inner 쿼리
+
+        // True/False : boolean타입 컬럼의 True Talse 검색, IsNotNull / IsNotEmpty 처럼 파라미터 안받음 (해당값 상수처럼 사용됨)
+        System.out.println("findByAllowTrue : " + usersRepository.findByAllowTrue());
+        System.out.println("findByAllowFalse : " + usersRepository.findByAllowFalse());
     }
 
 }

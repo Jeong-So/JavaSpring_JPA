@@ -2,10 +2,9 @@ package com.jeong.jpa.bookmanager.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,5 +26,11 @@ public class Users {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    private boolean allow;
+
+    // IsNotEmpty() 실습
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Address> address;
 
 }
