@@ -149,5 +149,46 @@ class UsersRepositoryTest {
         System.out.println(usersRepository.findRawRecord().get("gender"));
     }
 
+    @Test
+    void listenerTest(){
+        Users users = new Users();
+        users.setEmail("yujeong@kt.com");
+        users.setName("yujeong");
+
+        usersRepository.save(users);  // insert
+
+        Users users2 = usersRepository.findById(1L).orElseThrow(RuntimeException::new);
+        users2.setName("jjjeong");
+
+        usersRepository.save(users2);  // update
+
+        usersRepository.deleteById(4L);
+    }
+
+    @Test
+    void prePersistTest() {
+        Users user = new Users();
+        user.setEmail("moon@naver.com");
+        user.setName("moon");
+//        user.setCreatedAt(LocalDateTime.now());  // 개발자가 insert때마다 넣는 것은 비효율적이고 누락 시 치명적
+//        user.setUpdatedAt(LocalDateTime.now());  // CreatedAt / UpdatedAt 같은 것은 아예 insert 전 prepersist 설정해서 자동으로 set하도록 설정
+
+        usersRepository.save(user);
+
+        System.out.println(usersRepository.findByEmail("moon@naver.com"));
+    }
+
+    @Test
+    void preUpdateTest() {
+        Users user = usersRepository.findById(1L).orElseThrow(RuntimeException::new);
+
+        System.out.println("as-is : " + user);
+
+        user.setName("jjjeong");
+        usersRepository.save(user);
+
+        System.out.println("to-be : " + usersRepository.findAll().get(0));
+    }
+
 
 }
