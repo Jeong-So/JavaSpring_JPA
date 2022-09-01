@@ -1,6 +1,7 @@
 package com.jeong.jpa.bookmanager.domain;
 
-import com.jeong.jpa.bookmanager.domain.listener.Auditable;
+import com.jeong.jpa.bookmanager.domain.BaseEntity;
+import com.jeong.jpa.bookmanager.domain.Book;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -13,21 +14,18 @@ import javax.persistence.*;
 @Data
 @ToString(callSuper = true) // 상속받은 클래스 정보 처리를 위한 어노테이션 재정의
 @EqualsAndHashCode(callSuper = true) // 상속받은 클래스 정보 처리를 위한 어노테이션 재정의
-// 상속받은 클래스까지 toString을 하고 Equals와 HashCode를 비교하겠다는 뜻
-public class UsersHistory extends BaseEntity {
+public class BookReviewInfo  extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+//    private Long bookId;
 
-    private String name;
+    @OneToOne(optional = false)
+    // 1대 1 연관관계 맵핑, (optional = false) : 반드시 존재하는 값 (left outer join --> inner join )
+    private Book book;  // 엔티티 직접 참조
 
-    private String email;
+    private float averageReviewScore;
 
-    @Transient  // 영속성 처리 제외 : 해당 객체와 생명주기를 같이함 (DB에 반영하지 않고 그냥 사용하고 싶은 Object 속성), DDL시 반영 안됨
-    private String testData;
-
-    private boolean allow;
-
+    private int reviewCount;
 }

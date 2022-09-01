@@ -20,9 +20,10 @@ import javax.persistence.*;
 // INDEX나 constraints는 실제 DB에 적용된 것과 다를 수 있음, jpa entity를 활용하여 DDL을 생성하는 경우는 적용잉 되지만
 // 일반적으로 많이 사용하는 crud쿼리를 사용할 때는 아무런 효력 없음
 // 실제 DB에 INDEX가 없는데 JPA에 설정한다고 해서 DB에 반영되는건 아님
-public class Users extends BaseEntity implements Auditable {
+public class Users extends BaseEntity {
     @Id  // pk값
-    @GeneratedValue  // 자동으로 증가
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // 자동으로 증가
+    // hibernate_sequence로 자동으로 증가시키는 전략(모든 테이블 동시에)을 IDENTITY호 바꿔서 객체(tABLE)마다 자동증가로 바꿔줌
     private Long id;
 
     @NonNull
