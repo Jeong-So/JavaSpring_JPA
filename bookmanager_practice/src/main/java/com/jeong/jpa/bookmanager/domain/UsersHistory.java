@@ -19,15 +19,11 @@ public class UsersHistory extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "user_id")
     private Long userId;
 
     private String name;
 
     private String email;
-
-    @Transient  // 영속성 처리 제외 : 해당 객체와 생명주기를 같이함 (DB에 반영하지 않고 그냥 사용하고 싶은 Object 속성), DDL시 반영 안됨
-    private String testData;
-
-    private boolean allow;
 
 }

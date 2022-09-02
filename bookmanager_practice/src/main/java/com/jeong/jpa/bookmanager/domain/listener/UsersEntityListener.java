@@ -5,12 +5,14 @@ import com.jeong.jpa.bookmanager.domain.UsersHistory;
 import com.jeong.jpa.bookmanager.repository.UsersHistoryRepository;
 import com.jeong.jpa.bookmanager.support.BeanUtils;
 
+import javax.persistence.PostPersist;
+import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 public class UsersEntityListener {
-    @PrePersist
-    @PreUpdate
+    @PostPersist
+    @PostUpdate
     public void prePersistAndPreUpdate(Object o) {
         UsersHistoryRepository usersHistoryRepository = BeanUtils.getBean(UsersHistoryRepository.class);
 

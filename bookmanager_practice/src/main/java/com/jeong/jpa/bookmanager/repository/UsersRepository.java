@@ -63,8 +63,8 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     // exists inner 쿼리
 
     // True/False : boolean타입 컬럼의 True Talse 검색,  IsNotNull / IsNotEmpty 처럼 파라미터 안받음 (해당값 상수처럼 사용됨)
-    List<Users> findByAllowTrue();
-    List<Users> findByAllowFalse();
+//    List<Users> findByAllowTrue();
+//    List<Users> findByAllowFalse();
 
     // 7. In 쿼리 = OR 조건과 유사
     List<Users> findByNameIn(List<String> names);
