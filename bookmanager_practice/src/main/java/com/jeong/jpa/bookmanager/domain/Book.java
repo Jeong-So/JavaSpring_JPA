@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -25,10 +27,19 @@ public class Book extends BaseEntity {
 
     private Long authorId;
 
-    private Long publisherId;
+//    private Long publisherId;
 
     @OneToOne(mappedBy = "book") // mappedBy 설정 시 연관 키를 해당 테이블에서 갖지 않게 됨 --> book 테이블에 book_review_info_id 사라짐
     @ToString.Exclude  // stackOverFlowError : Entity relation 사용 시 toString같은 메소드 순환참조 걸림 relation은 단방향으로 걸거나 toString에서 제외
     private BookReviewInfo bookReviewInfo;
+
+    @OneToMany//(fetch = FetchType.EAGER)
+    @JoinColumn(name = "book_id") // , insertable = false, updatable = false
+    @ToString.Exclude
+    private List<Review> reviews = new ArrayList<>();
+
+    @ManyToOne
+    @ToString.Exclude
+    private Publisher publisher;
 
 }

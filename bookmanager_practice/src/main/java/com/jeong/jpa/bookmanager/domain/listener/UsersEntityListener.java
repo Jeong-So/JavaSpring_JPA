@@ -20,9 +20,10 @@ public class UsersEntityListener {
         Users user = (Users) o;
 
         UsersHistory userHistory = new UsersHistory();
-        userHistory.setUserId(user.getId());
+//        userHistory.setUsersId(user.getId());
         userHistory.setName(user.getName());
         userHistory.setEmail(user.getEmail());
+        userHistory.setUsers(user);
 
         usersHistoryRepository.save(userHistory);
     }

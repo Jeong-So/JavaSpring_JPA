@@ -32,7 +32,7 @@ class UsersHistoryRepositoryTest {
     }
 
     @Test
-    void userRelationTest() {
+    void userOneToManyRelationTest() {
         Users user = new Users();
         user.setName("david");
         user.setEmail("david@daum.net");
@@ -45,21 +45,15 @@ class UsersHistoryRepositoryTest {
         user.setEmail("daniel@naver.com");
         usersRepository.save(user);
 
-        Users user2 = new Users();
-        user2.setName("jeong");
-        user2.setEmail("jeong@daum.net");
-        user2.setGender(Gender.FEMALE);
-        usersRepository.save(user2);
-
         usersHistoryRepository.findAll().forEach(System.out::println);
 
-//        List<UsersHistory> result = usersHistoryRepository.findByUserId(
+//        List<UsersHistory> result = usersHistoryRepository.findByUsersId(
 //            usersRepository.findByEmail("daniel@naver.com").getId());
 
         List<UsersHistory> result = usersRepository.findByEmail("daniel@naver.com").getUsersHistories();
-        List<UsersHistory> result2 = usersRepository.findByEmail("jeong@daum.net").getUsersHistories();
 
         result.forEach(System.out::println);
-        result2.forEach(System.out::println);
+
+        System.out.println("UserHistory.getUser() : " + usersHistoryRepository.findAll().get(0).getUsers());
     }
 }

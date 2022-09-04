@@ -24,7 +24,6 @@ public class Users extends BaseEntity {
     private Long id;
     // hibernate_sequence로 자동으로 증가시키는 전략(모든 테이블 동시에)을 IDENTITY호 바꿔서 객체(tABLE)마다 자동증가로 바꿔줌
 
-
     @NonNull
     private String name;
 
@@ -35,11 +34,18 @@ public class Users extends BaseEntity {
     private Gender gender;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @JoinColumn(name = "users_id") // , insertable = false, updatable = false
     // @JoinColumn : 중간 mapping 테이블 제거를 위해 사용, 엔티티가 어떤 컬럼으로 조인을 하게 될지 지정해주는 어노테이션
     // users_history 테이블에 users_histories_id라는 join 컬럼 생성 --> name 지정 (user_id)
     // insertable = false, updatable = false : User 엔티티에서는 usersHistories 값을 저장/수정 불가하게 설정
+    @ToString.Exclude
     @Builder.Default
     private List<UsersHistory> usersHistories = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "users_id")
+    @ToString.Exclude
+    @Builder.Default
+    private List<Review> reviews = new ArrayList<>();
 
 }
